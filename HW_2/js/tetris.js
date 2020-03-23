@@ -67,14 +67,16 @@ var gameInterval = setInterval(() => {
 }, TIMEOUT);
 
 var playground = createPlayground();
+console.log("Playground is created");
 
 function restartGame() {
     if (objects.length > 0) {
       objects.length = 0;
       playground = createPlayground();
+      console.log("Playground is created");
     }
     console.log(playground);
-    renderPlayground()
+    renderPlayground();
 }
 
 restartGame();

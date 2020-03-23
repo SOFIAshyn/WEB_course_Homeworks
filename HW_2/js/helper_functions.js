@@ -56,19 +56,6 @@ function generateObject() {
 
 // newObject position generator
 function generatePosition(objType) {
-    // position for left top cell of object
-    // objL = Object.keys(TYPE_COLORS)[0];
-    // objT = Object.keys(TYPE_COLORS)[1];
-    // objI = Object.keys(TYPE_COLORS)[2];
-    // if (objType === objL){
-    //     return rotateObjectToBeValidForPosition(objL);
-    // }
-    // if (objType === objT){
-    //     return rotateObjectToBeValidForPosition(objT);
-    // }
-    // if (objType === objI){
-    //     return rotateObjectToBeValidForPosition(objI);
-    // }
     console.log("generatePosition , obj Type = ", objType);
     return rotateObjectToBeValidForPosition(objType);
 }
@@ -96,19 +83,7 @@ function rotateObjectToBeValidForPosition(objectType) {
         console.log("positionRotationState[objectType][i] = ", positionRotationState[objectType][i][1])
         positionRotationState[objectType][i][1] += xPosition;
     }
-    // let  = positionRotationState[objectType].map(coordinates => coordinates[2] += xPosition);
     console.log("Object rotated = ", positionRotationState[objectType], ", position = ", xPosition);
     return positionRotationState[objectType];
 }
 
-// function rotateLObjectToBeValidForPosition(position) {
-//
-// }
-//
-// function rotateTObjectToBeValidForPosition(position) {
-//
-// }
-//
-// function rotateIObjectToBeValidForPosition(position) {
-//
-// }
