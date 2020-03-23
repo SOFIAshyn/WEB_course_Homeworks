@@ -51,14 +51,16 @@ function generatePosition(objType) {
 }
 
 function rotateObjectToBeValidForPosition(objectType) {
-    console.log("we are here")
+    console.log("we are here");
     let positionRotationState = randomChoice(arrayOfAllObjectPositions);
+    console.log(positionRotationState, " = positionRotationState")
     let arrayXPositions = positionRotationState[objectType].map(eachCellPosition => eachCellPosition[1]);
     let xRightPositionLimit = Math.max(...arrayXPositions);
     let xLeftPositionLimit = Math.min(...arrayXPositions);
     let rangeXPosition = [0 - xLeftPositionLimit, WIDTH - xRightPositionLimit];
+    console.log("fghjkl", rangeXPosition);
     for (let i = rangeXPosition[0] + 1; i < rangeXPosition[1]; i++)
-        range.push(i);
+        rangeXPosition.push(i);
     var xPosition = randomChoice(rangeXPosition);
     positionRotationState[objectType].map(coordinates => coordinates[2] += xPosition);
     console.log("Object rotation, state = ", positionRotationState[objectType], ", position = ", xPosition)

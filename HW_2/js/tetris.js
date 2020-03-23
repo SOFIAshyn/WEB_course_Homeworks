@@ -57,6 +57,7 @@ function generateObject() {
       objects.length === 0 ||
       // all static => new obj
       objects.map(object => object.state === STATIC).filter(objBoolean => objBoolean === false) === [])) {
+      console.log("No need to generate new object.");
     return null;
   }
 
@@ -67,12 +68,14 @@ function generateObject() {
     position: generatePosition(newObjType),
   };
   colorState++;
+  console.log("Generated new object = ", newObj.type, " in position: ", newObj.position)
   return newObj;
 }
 
 // interval 1 second -
 var gameInterval = setInterval(() => {
   if (gameStatusValue === PLAY_GAME_STATUS) {
+    console.log("Action: generate new object.");
     // if we need => to generate new element
     newObj = generateObject();
     if (newObj !== null) {
