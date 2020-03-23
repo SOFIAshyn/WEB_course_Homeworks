@@ -3,7 +3,6 @@ const WIDTH = 5;
 const HEIGHT = 10;
 const xPositionsArray = [0, 1, 2, 3, 4];
 
-
 const TYPE_COLORS = {
   "L": 'red',
   "T": 'purple',

@@ -52,26 +52,6 @@ function pauseGame() {
 // 5. game over
 // 6. (re)render playground
 
-function generateObject() {
-  if (!(// no objects inside
-      objects.length === 0 ||
-      // all static => new obj
-      objects.map(object => object.state === STATIC).filter(objBoolean => objBoolean === false) === [])) {
-      console.log("No need to generate new object.");
-    return null;
-  }
-
-  newObjType = randomChoice(Object.keys(TYPE_COLORS));
-  var newObj = {
-    type: newObjType,
-    state: FALLING,
-    position: generatePosition(newObjType),
-  };
-  colorState++;
-  console.log("Generated new object = ", newObj.type, " in position: ", newObj.position)
-  return newObj;
-}
-
 // interval 1 second -
 var gameInterval = setInterval(() => {
   if (gameStatusValue === PLAY_GAME_STATUS) {

@@ -31,6 +31,29 @@ function randomChoice(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// newObj generator
+function generateObject() {
+  if (!(// no objects inside
+      objects.length === 0 ||
+      // all static => new obj
+      objects.map(object => object.state === STATIC).filter(objBoolean => objBoolean === false) === [])) {
+      console.log("No need to generate new object.");
+    return null;
+  }
+
+  var numArrayOfColors = [0, 1, 2];
+  let numberOfKey = randomChoice(numArrayOfColors);
+  newObjType = Object.keys(TYPE_COLORS)[numberOfKey];
+  var newObj = {
+    type: newObjType,
+    state: FALLING,
+    position: generatePosition(newObjType),
+  };
+  colorState++;
+  console.log("Generated new object = ", newObj.type, " in position: ", newObj.position)
+  return newObj;
+}
+
 // newObject position generator
 function generatePosition(objType) {
     // position for left top cell of object
@@ -46,24 +69,35 @@ function generatePosition(objType) {
     // if (objType === objI){
     //     return rotateObjectToBeValidForPosition(objI);
     // }
-    console.log(objType);
+    console.log("generatePosition , obj Type = ", objType);
     return rotateObjectToBeValidForPosition(objType);
 }
 
 function rotateObjectToBeValidForPosition(objectType) {
-    console.log("we are here");
-    let positionRotationState = randomChoice(arrayOfAllObjectPositions);
-    console.log(positionRotationState, " = positionRotationState")
-    let arrayXPositions = positionRotationState[objectType].map(eachCellPosition => eachCellPosition[1]);
+    // generate array with a number of all possible rotations
+  var numArrayOfRotationStates = [0, 1, 2, 3];
+    let num = randomChoice(numArrayOfRotationStates);
+    let positionRotationState = arrayOfAllObjectPositions[num];
+
+    console.log(positionRotationState[objectType], " = positionRotationState[objectType]")
+    const arrayXPositions = positionRotationState[objectType].map(eachCellPosition => eachCellPosition[1]);
+    console.log("Base positions of x = ", arrayXPositions);
+
     let xRightPositionLimit = Math.max(...arrayXPositions);
     let xLeftPositionLimit = Math.min(...arrayXPositions);
-    let rangeXPosition = [0 - xLeftPositionLimit, WIDTH - xRightPositionLimit];
-    console.log("fghjkl", rangeXPosition);
+    let rangeXPosition = [0 - xLeftPositionLimit, WIDTH - 1 - xRightPositionLimit];
+    console.log("Range of x position for particular figure = ", rangeXPosition);
     for (let i = rangeXPosition[0] + 1; i < rangeXPosition[1]; i++)
         rangeXPosition.push(i);
-    var xPosition = randomChoice(rangeXPosition);
-    positionRotationState[objectType].map(coordinates => coordinates[2] += xPosition);
-    console.log("Object rotation, state = ", positionRotationState[objectType], ", position = ", xPosition)
+
+    let xPosition = randomChoice(rangeXPosition);
+    console.log("Object not rotated = ", positionRotationState[objectType], "should be added position = ", xPosition);
+    for (let i = 0; i < positionRotationState[objectType].length; i++) {
+        console.log("positionRotationState[objectType][i] = ", positionRotationState[objectType][i][1])
+        positionRotationState[objectType][i][1] += xPosition;
+    }
+    // let  = positionRotationState[objectType].map(coordinates => coordinates[2] += xPosition);
+    console.log("Object rotated = ", positionRotationState[objectType], ", position = ", xPosition);
     return positionRotationState[objectType];
 }
 
