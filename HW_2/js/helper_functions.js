@@ -1,6 +1,6 @@
 // get the value of the first element in the array with the condition
 var getCurrentObject = () => objects.find(object => object.state === 'falling');
-var createPlayground = () => (new Array(10).fill().map( el => (new Array(5).fill())));
+var createPlayground = () => (new Array(10).fill().map(el => (new Array(5).fill())));
 
 // change game status button
 function modifyGameStatusText() {
@@ -36,8 +36,10 @@ function generateObject() {
   if (!(// no objects inside
       objects.length === 0 ||
       // all static => new obj
-      objects.map(object => object.state === STATIC).filter(objBoolean => objBoolean === false) === [])) {
-      console.log("No need to generate new object.");
+      objects.map(object => object.state === STATIC).filter(objBoolean => objBoolean === false).length === 0)) {
+      console.log(objects.map(object => object.state === STATIC).filter(objBoolean => objBoolean === false))
+      console.log("********************************")
+      console.log("No need to generate new object. Objects: ", objects);
     return null;
   }
 
@@ -50,7 +52,7 @@ function generateObject() {
     position: generatePosition(newObjType),
   };
   colorState++;
-  console.log("Generated new object = ", newObj.type, " in position: ", newObj.position)
+  console.log("Generated new object = ", newObj.type, " in position: ", newObj.position);
   return newObj;
 }
 
@@ -62,11 +64,10 @@ function generatePosition(objType) {
 
 function rotateObjectToBeValidForPosition(objectType) {
     // generate array with a number of all possible rotations
-  var numArrayOfRotationStates = [0, 1, 2, 3];
+    var numArrayOfRotationStates = [0, 1, 2, 3];
     let num = randomChoice(numArrayOfRotationStates);
     let positionRotationState = arrayOfAllObjectPositions[num];
 
-    console.log(positionRotationState[objectType], " = positionRotationState[objectType]")
     const arrayXPositions = positionRotationState[objectType].map(eachCellPosition => eachCellPosition[1]);
     console.log("Base positions of x = ", arrayXPositions);
 
@@ -80,10 +81,38 @@ function rotateObjectToBeValidForPosition(objectType) {
     let xPosition = randomChoice(rangeXPosition);
     console.log("Object not rotated = ", positionRotationState[objectType], "should be added position = ", xPosition);
     for (let i = 0; i < positionRotationState[objectType].length; i++) {
-        console.log("positionRotationState[objectType][i] = ", positionRotationState[objectType][i][1])
         positionRotationState[objectType][i][1] += xPosition;
     }
-    console.log("Object rotated = ", positionRotationState[objectType], ", position = ", xPosition);
+    console.log("Object rotated = ", positionRotationState[objectType]);
     return positionRotationState[objectType];
 }
 
+// control of objects
+function validMove(moveCoordinates) {
+    let allStaticPositions = [];
+    for (let i = 0; i < objects.length; i++) {
+        if (objects[i].state === STATIC) {
+            allStaticPositions.push(objects[i].position)
+        }
+    }
+    allStaticPositions = allStaticPositions.flat();
+    console.log("@#$%^&*()_(*&^%$#@!#$%^&*()*&^%$#@!#$%^&*()_(*&^%$#@!#$%^&*(");
+
+    for (let i = 0; i < moveCoordinates.length; i++) {
+        console.log("Static positions: ", allStaticPositions, " our pos = ", moveCoordinates[i]);
+        if ( allStaticPositions.
+            map(el => el[0] === (moveCoordinates[i][0])
+                    && el[1] === moveCoordinates[i][1]).
+            filter(el => el === true).length !== 0) {
+            console.log("position is not valid: ", moveCoordinates[i]);
+            return 0;
+        }
+        if ( moveCoordinates[i][1] < 0 || moveCoordinates[i][1] > WIDTH - 1
+            || moveCoordinates[i][0] < 0 || moveCoordinates[i][0] > HEIGHT - 1) {
+            console.log("position is out of boundaries: ", moveCoordinates[i]);
+            return 2;
+        }
+    }
+    console.log("position is valid: ", moveCoordinates);
+    return 1;
+}

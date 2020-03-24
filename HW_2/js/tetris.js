@@ -1,5 +1,12 @@
-// will add object positions to the emply playground array
+// will add object positions to the empty playground array
+
+var playground = createPlayground();
+console.log("Playground is created");
+console.log(objects)
+
 function renderPositions() {
+  console.log(objects);
+  console.log(playground);
   objects.forEach( object => {
     object.position.forEach( ([rowIndex, cellIndex]) => {
       playground[rowIndex][cellIndex] = TYPE_COLORS[object.type]
@@ -8,41 +15,84 @@ function renderPositions() {
 }
 
 function moveDown(obj) {
-  console.log('moving down')
-  // 1. get current object - done
+  console.log('moving down');
+  // get current object
   let currentObject = getCurrentObject();
+  console.log('current object = ', currentObject);
 
-  // 2. re-define objects - done
-  console.log(objects)
-  currentObject.position.forEach(position => (position[0] > 0 && (position[0] -= 1)));
-  console.log(objects)
-  
+  let futurePosition = [];
+  for (let i = 0; i < currentObject.position.length; i++) {
+    futurePosition.push([currentObject.position[i][0] - 1, currentObject.position[i][1]])
+  }
+  console.log('replacement to : ', futurePosition);
+  let validness = validMove(futurePosition);
+  console.log("XXX = ", validness)
+  if (validness === 1) {
+      currentObject.position.forEach(position => position[0] -= 1);
+  } else if (!validness) {
+      currentObject.state = STATIC;
+      console.log("element is static.");
+  }
+
   // 3. re-define clear playground
   playground = createPlayground();
-
   // 4. re-renderPositions
   // 5. re-renderPlayground
-  renderPlayground()
+  renderPlayground();
+  renderPositions();
+
 }
 
 function moveRight(obj) {
-  console.log('moving right')
+  console.log('moving right');
+  // get current object
   let currentObject = getCurrentObject();
-  console.log(currentObject);
+  console.log('current object = ', currentObject);
+
+  let futurePosition = [];
+  for (let i = 0; i < (currentObject.position).length; i++) {
+    futurePosition.push([currentObject.position[i][0], currentObject.position[i][1] + 1])
+  }
+  console.log('replacement to : ', futurePosition);
+  if (validMove(futurePosition) === 1) {
+    (currentObject.position).forEach(position => position[1] += 1);
+  }
+
+  // 3. re-define clear playground
+  playground = createPlayground();
+  renderPlayground();
+  // 4. re-renderPositions
+  renderPositions();
+  // 5. re-renderPlayground
 }
 
 function moveLeft(obj) {
-  console.log('moving left')
+  console.log('moving left');
+  // get current object
   let currentObject = getCurrentObject();
-  console.log(currentObject);
+  console.log('current object = ', currentObject);
+
+  let futurePosition = [];
+  for (let i = 0; i < (currentObject.position).length; i++) {
+    futurePosition.push([currentObject.position[i][0], currentObject.position[i][1] - 1])
+  }
+  console.log('replacement to : ', futurePosition);
+  if (validMove(futurePosition) === 1) {
+    (currentObject.position).forEach(position => position[1] -= 1);
+  }
+
+  // 3. re-define clear playground
+  playground = createPlayground();
+  // 4. re-renderPositions
+  // 5. re-renderPlayground
+  renderPlayground();
+  renderPositions();
 }
 
 function pauseGame() {
-  console.log('pausing the game')
+  console.log('pausing the game');
   clearInterval(gameInterval);
 }
-
-// function createObj() {}
 
 // Events
 // 1. move to bottom
@@ -58,6 +108,7 @@ var gameInterval = setInterval(() => {
     console.log("Action: generate new object.");
     // if we need => to generate new element
     newObj = generateObject();
+    // null if we don't need it to be generated && if there is not enough space
     if (newObj !== null) {
       objects.push(newObj);
     }
@@ -66,8 +117,6 @@ var gameInterval = setInterval(() => {
   }
 }, TIMEOUT);
 
-var playground = createPlayground();
-console.log("Playground is created");
 
 function restartGame() {
     if (objects.length > 0) {
