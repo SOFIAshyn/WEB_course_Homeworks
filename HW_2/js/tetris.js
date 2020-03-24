@@ -41,9 +41,10 @@ function moveDown(obj) {
   // 3. re-define clear playground
   playground = createPlayground();
   // 4. re-renderPositions
+  renderPositions();
   // 5. re-renderPlayground
   renderPlayground();
-  renderPositions();
+
 
 }
 
@@ -64,10 +65,11 @@ function moveRight(obj) {
 
   // 3. re-define clear playground
   playground = createPlayground();
-  renderPlayground();
+
   // 4. re-renderPositions
   renderPositions();
   // 5. re-renderPlayground
+  renderPlayground();
 }
 
 function moveLeft(obj) {
@@ -89,8 +91,8 @@ function moveLeft(obj) {
   playground = createPlayground();
   // 4. re-renderPositions
   // 5. re-renderPlayground
-  renderPlayground();
   renderPositions();
+  renderPlayground();
 }
 
 function pauseGame() {
@@ -106,7 +108,7 @@ function pauseGame() {
 // 5. game over
 // 6. (re)render playground
 
-// interval 1 second -
+// interval
 var gameInterval = setInterval(() => {
   if (gameStatusValue === PLAY_GAME_STATUS) {
     console.log("Action: generate new object.");

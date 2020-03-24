@@ -59,7 +59,14 @@ function generateObject() {
 // newObject position generator
 function generatePosition(objType) {
     console.log("generatePosition , obj Type = ", objType);
-    return rotateObjectToBeValidForPosition(objType);
+    let rotatedObj = rotateObjectToBeValidForPosition(objType);
+    console.log("rotated Type = ", validMove(rotatedObj));
+    while (validMove(rotatedObj) === 0) {
+        rotatedObj = rotateObjectToBeValidForPosition(objType);
+        console.log("bad rotated Type = ", rotatedObj);
+    }
+    console.log("good rotated Type = ", rotatedObj);
+    return rotatedObj;
 }
 
 function rotateObjectToBeValidForPosition(objectType) {
