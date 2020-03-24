@@ -33,6 +33,10 @@ function moveDown(obj) {
       currentObject.state = STATIC;
       console.log("element is static.");
   }
+  if ( currentObject.position.map(pos => pos[0] === 0).filter(el => el === true).length !== 0 ) {
+    currentObject.state = STATIC;
+    console.log("element is static.");
+  }
 
   // 3. re-define clear playground
   playground = createPlayground();
