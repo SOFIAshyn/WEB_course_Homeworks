@@ -6,7 +6,7 @@ function renderPlayground() {
 
   for (let rowIndex = playground.length - 1; rowIndex >= 0; rowIndex-- ) {
     let rowNode = createRow(rowIndex);
-    for (let cellIndex = 0; cellIndex < playground[rowIndex].length; cellIndex++) {
+    for (let cellIndex = 0; cellIndex < playground[rowIndex].length; cellIndex++){
       rowNode.appendChild(createCell(cellIndex, playground[rowIndex][cellIndex]))
     }
     playgroundNode.appendChild(rowNode);

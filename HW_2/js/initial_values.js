@@ -1,4 +1,4 @@
-var objects = [
+const objects = [
   // {
   //   type: 'L',
   //   state: 'falling',
@@ -18,77 +18,72 @@ var objects = [
   // }
 ];
 
-var gameInterval;
+let gameInterval;
 
 // Status Game:
-var gameStatusValue = PAUSE_GAME_STATUS;
+const gameStatusValue = PAUSE_GAME_STATUS;
 
-var colorState = 0;
+const colorState = 0;
 
 // to save newly generated object
-var newObj;
-var newObjType;
+let newObj;
+let newObjType;
 
-var INITIAL_POSITIONS = {
-  "L": [[9, 0],
+const INITIAL_POSITIONS = {
+  'L': [[9, 0],
     [8, 0],
     [8, 1],
     [8, 2]], // |__
-  "T": [[9, -1],
+  'T': [[9, -1],
     [9, 0],
     [9, 1],
     [8, 0]],
-  "I": [[9, 0],
+  'I': [[9, 0],
     [9, 1],
-    [9, 2]]
+    [9, 2]],
 };
 
-var ROTATE_180_POSITIONS = {
-  "L": [[8, 0],
+const ROTATE_180_POSITIONS = {
+  'L': [[8, 0],
     [9, 0],
     [9, -1],
     [9, -2]],
-  "T": [[8, -1],
+  'T': [[8, -1],
     [8, 0],
     [8, 1],
     [9, 0]],
-  "I": [[9, 0],
+  'I': [[9, 0],
     [9, 1],
-    [9, 2]]
+    [9, 2]],
 };
 
-var VERT_INITIAL_POSITIONS = {
-  "L": [[7, 0],
+const VERT_INITIAL_POSITIONS = {
+  'L': [[7, 0],
     [7, -1],
     [8, -1],
     [9, -1]], // |_
-  "T": [[7, -1],
+  'T': [[7, -1],
     [8, -1],
     [9, -1],
     [8, 0]],
-  "I": [[9, 0],
+  'I': [[9, 0],
     [8, 0],
-    [7, 0]]
+    [7, 0]],
 };
 
-var VERT_180_INITIAL_POSITIONS = {
-  "L": [[7, 0],
+const VERT_180_INITIAL_POSITIONS = {
+  'L': [[7, 0],
     [7, 1],
     [8, 1],
     [9, 1]],
-  "T": [[7, 1],
+  'T': [[7, 1],
     [8, 1],
     [9, 1],
     [8, 1]],
-  "I": [[9, 0],
+  'I': [[9, 0],
     [8, 0],
-    [7, 0]]
+    [7, 0]],
 };
 
-var arrayOfAllObjectPositions = [INITIAL_POSITIONS, ROTATE_180_POSITIONS, VERT_INITIAL_POSITIONS, VERT_180_INITIAL_POSITIONS];
-
-// var INITIAL_POSITIONS = {
-//   "L": [[9, 1], [8, 1], [8, 2], [8, 3]],
-//   "T": [[9, 2], [9, 3], [9, 4], [8, 3]],
-//   "I": [[9, 2], [8, 2], [7, 2]]
-// };
+const arrayOfAllObjectPositions = [INITIAL_POSITIONS, ROTATE_180_POSITIONS,
+  VERT_INITIAL_POSITIONS, VERT_180_INITIAL_POSITIONS];

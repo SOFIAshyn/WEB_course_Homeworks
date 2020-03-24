@@ -6,7 +6,7 @@ const xPositionsArray = [0, 1, 2, 3, 4];
 const TYPE_COLORS = {
   "L": 'red',
   "T": 'purple',
-  "I": 'green'
+  "I": 'green',
 };
 
 const FALLING = 'falling';

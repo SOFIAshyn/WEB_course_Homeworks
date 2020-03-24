@@ -1,4 +1,4 @@
-document.addEventListener("keydown", event => {
+document.addEventListener('keydown', (event) => {
   switch (event.keyCode) {
     case DOWN:
       moveDown();
