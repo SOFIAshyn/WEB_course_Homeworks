@@ -18,6 +18,8 @@ var objects = [
   // }
 ];
 
+var gameInterval;
+
 // Status Game:
 var gameStatusValue = PAUSE_GAME_STATUS;
 

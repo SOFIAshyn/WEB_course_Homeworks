@@ -61,7 +61,9 @@ function generatePosition(objType) {
     console.log("generatePosition , obj Type = ", objType);
     let rotatedObj = rotateObjectToBeValidForPosition(objType);
     console.log("rotated Type = ", validMove(rotatedObj));
-    while (validMove(rotatedObj) === 0) {
+    while (validMove(rotatedObj) === 0
+        && rotatedObj.map(el => el[0]).filter(y => y < 6).length === 0
+        ) {
         rotatedObj = rotateObjectToBeValidForPosition(objType);
         console.log("bad rotated Type = ", rotatedObj);
     }
@@ -108,10 +110,9 @@ function getStaticPositions() {
 // control of objects
 function validMove(moveCoordinates) {
     let allStaticPositions = getStaticPositions();
-    console.log("@#$%^&*()_(*&^%$#@!#$%^&*()*&^%$#@!#$%^&*()_(*&^%$#@!#$%^&*(");
 
     for (let i = 0; i < moveCoordinates.length; i++) {
-        console.log("Static positions: ", allStaticPositions, " our pos = ", moveCoordinates[i]);
+        // console.log("Static positions: ", allStaticPositions, " our pos = ", moveCoordinates[i]);
         if ( allStaticPositions.
             map(el => el[0] === (moveCoordinates[i][0])
                     && el[1] === moveCoordinates[i][1]).

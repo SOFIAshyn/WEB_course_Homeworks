@@ -26,7 +26,7 @@ function moveDown(obj) {
   }
   console.log('replacement to : ', futurePosition);
   let validness = validMove(futurePosition);
-  console.log("XXX = ", validness)
+  console.log("Move valid = ", validness)
   if (validness === 1) {
       currentObject.position.forEach(position => position[0] -= 1);
   } else if (!validness) {
@@ -44,8 +44,6 @@ function moveDown(obj) {
   renderPositions();
   // 5. re-renderPlayground
   renderPlayground();
-
-
 }
 
 function moveRight(obj) {
@@ -112,28 +110,27 @@ function stopTheGame() {
   clearInterval(gameInterval);
 }
 
-// interval
-var gameInterval = setInterval(() => {
-  if (gameStatusValue === PLAY_GAME_STATUS) {
-    console.log("Action: generate new object.");
-    // if we need => to generate new element
-    newObj = generateObject();
-    // null if we don't need it to be generated && if there is not enough space
-    if (newObj !== null) {
-      objects.push(newObj);
-    }
-    renderPositions();
-    if (checkColumns() === 0) {
-      stopTheGame();
-      alert("Game Over");
-    }
-    moveDown();
-    checkRows();
-  }
-}, TIMEOUT);
-
-
 function restartGame() {
+    // interval
+    gameInterval = setInterval(() => {
+    if (gameStatusValue === PLAY_GAME_STATUS) {
+        console.log("Action: generate new object.");
+        // if we need => to generate new element
+        newObj = generateObject();
+        // null if we don't need it to be generated && if there is not enough space
+        if (newObj !== null) {
+          objects.push(newObj);
+        }
+        renderPositions();
+        if (checkColumns() === 0) {
+          stopTheGame();
+          alert("Game Over");
+        }
+        moveDown();
+        checkRows();
+      }
+    }, TIMEOUT);
+
     if (objects.length > 0) {
       objects.length = 0;
       playground = createPlayground();
