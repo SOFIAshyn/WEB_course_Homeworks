@@ -94,8 +94,7 @@ function rotateObjectToBeValidForPosition(objectType) {
     return positionRotationState[objectType];
 }
 
-// control of objects
-function validMove(moveCoordinates) {
+function getStaticPositions() {
     let allStaticPositions = [];
     for (let i = 0; i < objects.length; i++) {
         if (objects[i].state === STATIC) {
@@ -103,6 +102,12 @@ function validMove(moveCoordinates) {
         }
     }
     allStaticPositions = allStaticPositions.flat();
+    return allStaticPositions;
+}
+
+// control of objects
+function validMove(moveCoordinates) {
+    let allStaticPositions = getStaticPositions();
     console.log("@#$%^&*()_(*&^%$#@!#$%^&*()*&^%$#@!#$%^&*()_(*&^%$#@!#$%^&*(");
 
     for (let i = 0; i < moveCoordinates.length; i++) {
@@ -121,5 +126,35 @@ function validMove(moveCoordinates) {
         }
     }
     console.log("position is valid: ", moveCoordinates);
+    return 1;
+}
+
+// game over, clear rows
+function checkRows() {
+    let allStaticPositions = getStaticPositions();
+
+    for (let i = 0; i < WIDTH; i++) {
+        if (allStaticPositions.map(el => el[0]).filter(xCoord => xCoord === i).length === WIDTH) {
+            for (let obj = 0; obj < objects.length; obj++) {
+                for (let coord = 0; coord < objects[obj].position.length; coord++ ) {
+                    console.log(allStaticPositions.map(el => el[0]).filter(xCoord => xCoord === i).length);
+                    console.log("----------------------- = ", objects[obj].position[coord][0]);
+                    objects[obj].position = objects[obj].position.filter(pos_el => pos_el[0] !== i);
+                }
+            }
+        }
+    }
+
+    objects = objects.filter(obj => obj.position.length !== 0);
+}
+
+function checkColumns() {
+    let allStaticPositions = getStaticPositions();
+
+    for (let i = 0; i < WIDTH; i++) {
+        if (allStaticPositions.map(el => el[1]).filter(xCoord => xCoord === i).length === HEIGHT) {
+            return 0;
+        }
+    }
     return 1;
 }

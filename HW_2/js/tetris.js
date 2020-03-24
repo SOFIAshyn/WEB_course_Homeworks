@@ -108,6 +108,10 @@ function pauseGame() {
 // 5. game over
 // 6. (re)render playground
 
+function stopTheGame() {
+  clearInterval(gameInterval);
+}
+
 // interval
 var gameInterval = setInterval(() => {
   if (gameStatusValue === PLAY_GAME_STATUS) {
@@ -119,7 +123,12 @@ var gameInterval = setInterval(() => {
       objects.push(newObj);
     }
     renderPositions();
+    if (checkColumns() === 0) {
+      stopTheGame();
+      alert("Game Over");
+    }
     moveDown();
+    checkRows();
   }
 }, TIMEOUT);
 

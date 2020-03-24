@@ -26,4 +26,4 @@ const FINISH_TEXT = 'Finish';
 const PLAY_GAME_STATUS = 1;
 const PAUSE_GAME_STATUS = 0;
 
-const TIMEOUT = 3000;
+const TIMEOUT = 1000;
